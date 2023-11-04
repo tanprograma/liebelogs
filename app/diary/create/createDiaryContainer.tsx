@@ -9,13 +9,18 @@ import axios from "axios";
 const CreateDiaryContainer = () => {
   const route = `${process.env.NEXT_PUBLIC_BASE_URL}/api/diary`;
   let [created, setCreated] = useState<Diary[]>([]);
-
+  let original = created;
   const onAdd = (item: Diary) => {
     setCreated([...created, item]);
 
-    axios.post(route, item).then(({ data: SavedItem }) => {
-      setCreated([...created, SavedItem]);
-    });
+    axios
+      .post(route, item)
+      .then(({ data: SavedItem }) => {
+        setCreated([...created, SavedItem]);
+      })
+      .catch((e) => {
+        setCreated(original);
+      });
   };
   return (
     <div>

@@ -3,11 +3,21 @@ import Image from "next/image";
 
 export default async function Home() {
   const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api`;
+  let diaries: Diary[] = [];
+  let logs: Log[] = [];
+  try {
+    const diary_req = await fetch(`${url}/diary`, { cache: "no-cache" });
+    diaries = await diary_req.json();
+  } catch (error) {
+    diaries = [];
+  }
 
-  const diary_req = await fetch(`${url}/diary`, { cache: "no-cache" });
-  const diaries: Diary[] = await diary_req.json();
-  const log_req = await fetch(`${url}/logs`, { cache: "no-cache" });
-  const logs: Log[] = await log_req.json();
+  try {
+    const log_req = await fetch(`${url}/logs`, { cache: "no-cache" });
+    logs = await log_req.json();
+  } catch (error) {
+    const logs = [];
+  }
   const thoughts = logs.filter((i) => i.category == "thoughts").length;
   const reviews = logs.filter((i) => i.category == "reviews").length;
   const plans = logs.filter((i) => i.category == "plans").length;
