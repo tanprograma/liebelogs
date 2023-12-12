@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 const schema = new Schema({
-  content: { type: String, uppercase: true },
+  content: { type: String },
   created_at: { type: Date, default: () => Date.now() },
   modified_at: { type: Date, default: () => Date.now() },
 });
