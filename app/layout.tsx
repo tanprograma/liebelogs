@@ -21,7 +21,7 @@ export default function RootLayout({
         <header>
           <MainNav />
         </header>
-        <main>{children}</main>
+        <main className="w-full max-w-4xl ml-auto mr-auto">{children}</main>
       </body>
     </html>
   );
